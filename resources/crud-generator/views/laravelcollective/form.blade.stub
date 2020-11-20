@@ -1,0 +1,5 @@
+%%formFieldsHtml%%
+
+<div class="form-group">
+    {!! Form::submit($formMode === 'edit' ? 'แก้ไข' : 'สร้าง', ['class' => 'btn btn-primary']) !!}
+</div>
