@@ -50,6 +50,7 @@ class LoginController extends Controller
                 $user->activate = 1;
                 $user->email = $request->email;
                 if($user->save()){
+                    Auth::login($user);
                     return redirect('/');
                 }
             }

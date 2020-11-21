@@ -24,7 +24,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
         Route::get('/generator', 'ProcessController@getGenerator');
         Route::post('/generator', 'ProcessController@postGenerator');
         Route::resource('roles', 'RolesController');
-        Route::resource('role-user', 'RoleUserController');
+        // Route::resource('role-user', 'RoleUserController');
         Route::resource('users', 'UserController');
         Route::resource('categories', 'CategoriesController');
         Route::resource('activity', 'ActivityController');
