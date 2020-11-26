@@ -20,7 +20,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get("setting", 'AuthController@setting');
     Route::post("setting", 'AuthController@profileUpdate');
 
-    Route::group([ 'middleware' => ['checkRegister']], function () {
+    Route::group(['middleware' => ['checkRegister']], function () {
         Route::get('/', 'AdminController@index');
         Route::get('/generator', 'ProcessController@getGenerator');
         Route::post('/generator', 'ProcessController@postGenerator');
@@ -33,7 +33,6 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
         Route::resource('shop-view', 'ShopViewController');
         Route::resource('shop-store', 'ShopStoreController');
         Route::resource('operator', 'OperatorContoller');
-
     });
 
     // Route::group(['prefix' => 'BPS', 'middleware' => ['checkRole:2']], function () {
@@ -44,5 +43,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
 });
 Auth::routes();
 
-Route::resource('products', 'Admin\ProductsController');
+Route::get('test', function () {
+    echo "testPage";
+});
 
+Route::resource('products', 'Admin\ProductsController');
