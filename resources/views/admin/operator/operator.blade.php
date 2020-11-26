@@ -347,7 +347,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPS"
                             , map
@@ -359,7 +359,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPL"
                             , map
@@ -371,7 +371,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPF"
                             , map
@@ -383,7 +383,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPA"
                             , map
@@ -395,7 +395,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|A1DE93|10|_|CD"
                             , map
@@ -407,7 +407,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|70A1D7|10|_|SME"
                             , map
@@ -419,7 +419,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|A1DE93|10|_|BF"
                             , map
@@ -461,7 +461,7 @@
                         {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                         position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://developers.google.com/maps/documentation/javascript/examples/full/images/parking_lot_maps.png"
                             , map
@@ -474,7 +474,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPS"
                             , map
@@ -486,7 +486,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPL"
                             , map
@@ -498,7 +498,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPF"
                             , map
@@ -510,7 +510,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPA"
                             , map
@@ -522,7 +522,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|A1DE93|10|_|CD"
                             , map
@@ -534,7 +534,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|70A1D7|10|_|SME"
                             , map
@@ -546,7 +546,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|E0BBE4|10|_|BF"
                             , map
@@ -588,7 +588,7 @@
                         {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                         position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://developers.google.com/maps/documentation/javascript/examples/full/images/parking_lot_maps.png"
                             , map
@@ -601,7 +601,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPS"
                             , map
@@ -613,7 +613,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPL"
                             , map
@@ -625,7 +625,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPF"
                             , map
@@ -637,7 +637,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPA"
                             , map
@@ -649,7 +649,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|A1DE93|10|_|CD"
                             , map
@@ -661,7 +661,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|70A1D7|10|_|SME"
                             , map
@@ -673,7 +673,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|E0BBE4|10|_|BF"
                             , map
@@ -715,7 +715,7 @@
                         {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                         position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://developers.google.com/maps/documentation/javascript/examples/full/images/parking_lot_maps.png"
                             , map
@@ -728,7 +728,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPS"
                             , map
@@ -740,7 +740,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPL"
                             , map
@@ -752,7 +752,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPF"
                             , map
@@ -764,7 +764,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPA"
                             , map
@@ -776,7 +776,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|A1DE93|10|_|CD"
                             , map
@@ -788,7 +788,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|70A1D7|10|_|SME"
                             , map
@@ -800,7 +800,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|E0BBE4|10|_|BF"
                             , map
@@ -842,7 +842,7 @@
                         {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                         position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://developers.google.com/maps/documentation/javascript/examples/full/images/parking_lot_maps.png"
                             , map
@@ -855,7 +855,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPS"
                             , map
@@ -867,7 +867,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPL"
                             , map
@@ -879,7 +879,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPF"
                             , map
@@ -891,7 +891,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPA"
                             , map
@@ -903,7 +903,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|A1DE93|10|_|CD"
                             , map
@@ -915,7 +915,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|70A1D7|10|_|SME"
                             , map
@@ -927,7 +927,7 @@
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
                                 lat: {{ $user->lat ?? 13.736717}},
-                                lng: {{ $user->lng}}
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|E0BBE4|10|_|BF"
                             , map
