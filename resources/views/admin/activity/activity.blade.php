@@ -84,19 +84,13 @@
             <form action="{{ route('activity.store') }}" method="post">
                 @csrf
                 <div class="row">
-                    <div class="col-md-6 col-12">
+                    <div class="col-12">
                         <div class="form-group">
                             <label for="post_title">หัวเรื่อง</label>
                             <input id="post_title" class="form-control" type="text" name="post_title" required>
                         </div>
                     </div>
-                    <div class="col-md-6 col-12">
-                        <div class="form-group">
-                            <label for="post_name">SLUG</label>
-                            <input id="post_name" class="form-control" type="text" name="post_name">
-                        </div>
-                    </div>
-                    <div class="col-md-12 mb-3">
+                    <div class="col-12 mb-3">
                         <h5>ตั้งค่าเพิ่มเติม</h5>
                         <div class="form-check" required>
                             <input class="form-check-input" name="comment_status" type="checkbox" id="comment_status"
@@ -106,11 +100,20 @@
                             </label>
                         </div>
                     </div>
+                    <div class="col-12 mb-3">
+                        <h5>เนื้อหา</h5>
+                        <div class="form-group">
+                            <textarea name="post_content" class="form-control" rows="10" required cols="80"> </textarea>
+                        </div>
+                    </div>
                     <div class="col-12">
                         <div class="form-group">
-                            <label for="post_content">เนื้อหาของกิจกรรม</label>
-                            <textarea name="post_content" class="form-control" id="post_content" rows="10" required
-                                cols="80"> </textarea>
+                            <label for="t1">ลิงก์เพิ่มเติม</label>
+                            <textarea name="link" id="t1" class="form-control" rows="10" required
+                                cols="80" placeholder="ได้มากกว่า 1 รายการ เช่น
+https://www.facebook.com/activity
+https://www.youtube.com/activity
+https://www.instagram.com/activity"></textarea>
                         </div>
                     </div>
 
@@ -121,13 +124,19 @@
         <form action="{{ route('activity.destroy', 0) }}" method="post" name="delete" id="delete">
             @csrf
             @method('delete')
-            <input type="text" value="0" id="to_delete" name="to_delete">
+            <input type="text" id="to_delete" name="to_delete">
         </form>
     </div>
     </div>
 @endsection
 @section('scripts')
     <script>
+        $(document).ready(function() {
+            $('#t1').summernote('destroy');
+            $('#t1').val('')
+        });
+
+
         let form = Array.from(document.getElementsByName('publish'));
 
         for (let i = 0; i < form.length; i++) {

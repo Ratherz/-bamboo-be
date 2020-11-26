@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Redirect;
+
 Artisan::call("storage:link");
 
 
@@ -28,6 +29,11 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
         Route::resource('users', 'UserController');
         Route::resource('categories', 'CategoriesController');
         Route::resource('activity', 'ActivityController');
+        Route::resource('shop', 'ShopAllController');
+        Route::resource('shop-view', 'ShopViewController');
+        Route::resource('shop-store', 'ShopStoreController');
+        Route::resource('operator', 'OperatorContoller');
+
     });
 
     // Route::group(['prefix' => 'BPS', 'middleware' => ['checkRole:2']], function () {
@@ -39,3 +45,4 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
 Auth::routes();
 
 Route::resource('products', 'Admin\ProductsController');
+

@@ -1,5 +1,6 @@
 @php
 $menus = App\Models\SiteInfo::$SideMenu;
+$menususer = App\Models\SiteInfo::$SideMenuUser;
 @endphp
 
 <aside class="menu-sidebar d-none d-lg-block">
@@ -12,33 +13,63 @@ $menus = App\Models\SiteInfo::$SideMenu;
     <div class="menu-sidebar__content js-scrollbar1">
         <nav class="navbar-sidebar">
             <ul class="list-unstyled navbar__list">
-                @foreach ($menus as $menu)
-                    @if (!empty($menu['sublist']))
-                        <li class="has-sub">
-                            <a class="js-arrow open" href="#">
-                                <i class="{{ $menu['icon'] }}"></i>{{ $menu['name'] }}</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list" style="display:block">
-                                @foreach ($menu['sublist'] as $sublist)
-                                    @php
-                                    $class = url()->current()==url($sublist['url']) ? 'active' : '';
-                                    @endphp
-                                    <li class="{{ $class }}">
-                                        <a href="{{ url($sublist['url']) }}"><i class="{{ $sublist['icon'] }}"
-                                                aria-hidden="true"></i>{{ $sublist['name'] }}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </li>
-                    @else
-                        @php
-                        $class = url()->current() == url($menu['url']) ? 'active' : '';
-                        @endphp
-                        <li class="{{ $class }}">
-                            <a href="{{ url($menu['url']) }}">
-                                <i class="{{ $menu['icon'] }}"></i>{{ $menu['name'] }}</a>
-                        </li>
-                    @endif
-                @endforeach
+                @if (Auth::user()->getIdRoles() == 1)
+                    @foreach ($menus as $menu)
+                        @if (!empty($menu['sublist']))
+                            <li class="has-sub">
+                                <a class="js-arrow open" href="#">
+                                    <i class="{{ $menu['icon'] }}"></i>{{ $menu['name'] }}</a>
+                                <ul class="list-unstyled navbar__sub-list js-sub-list" style="display:block">
+                                    @foreach ($menu['sublist'] as $sublist)
+                                        @php
+                                        $class = url()->current()==url($sublist['url']) ? 'active' : '';
+                                        @endphp
+                                        <li class="{{ $class }}">
+                                            <a href="{{ url($sublist['url']) }}"><i class="{{ $sublist['icon'] }}"
+                                                    aria-hidden="true"></i>{{ $sublist['name'] }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @else
+                            @php
+                            $class = url()->current() == url($menu['url']) ? 'active' : '';
+                            @endphp
+                            <li class="{{ $class }}">
+                                <a href="{{ url($menu['url']) }}">
+                                    <i class="{{ $menu['icon'] }}"></i>{{ $menu['name'] }}</a>
+                            </li>
+                        @endif
+                    @endforeach
+                @else
+                    @foreach ($menususer as $menu)
+                        @if (!empty($menu['sublist']))
+                            <li class="has-sub">
+                                <a class="js-arrow open" href="#">
+                                    <i class="{{ $menu['icon'] }}"></i>{{ $menu['name'] }}</a>
+                                <ul class="list-unstyled navbar__sub-list js-sub-list" style="display:block">
+                                    @foreach ($menu['sublist'] as $sublist)
+                                        @php
+                                        $class = url()->current()==url($sublist['url']) ? 'active' : '';
+                                        @endphp
+                                        <li class="{{ $class }}">
+                                            <a href="{{ url($sublist['url']) }}"><i class="{{ $sublist['icon'] }}"
+                                                    aria-hidden="true"></i>{{ $sublist['name'] }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @else
+                            @php
+                            $class = url()->current() == url($menu['url']) ? 'active' : '';
+                            @endphp
+                            <li class="{{ $class }}">
+                                <a href="{{ url($menu['url']) }}">
+                                    <i class="{{ $menu['icon'] }}"></i>{{ $menu['name'] }}</a>
+                            </li>
+                        @endif
+                    @endforeach
+                @endif
             </ul>
         </nav>
         <div class="ps__rail-x" style="left: 0px; bottom: 0px;">

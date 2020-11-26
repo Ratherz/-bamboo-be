@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ImageUpload;
 
 use App\Models\Product;
+use App\Models\ProductImg;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -33,8 +34,9 @@ class ProductsController extends Controller
         } else {
             $products = Product::latest()->paginate($perPage);
         }
-
-        return view('admin.products.index', compact('products'));
+        $productImg = Product::join('product_img','product_img.product','=','products.id')->get()->toArray();
+        // dd($productImg);
+        return view('admin.products.index', ['products'=>$products,'productImg'=>$productImg]);
     }
 
     /**
@@ -63,11 +65,45 @@ class ProductsController extends Controller
         ]);
         $requestData = $request->all();
         $requestData['user_id'] = Auth::user()->id;
+           
         if ($request->hasFile('file_image')) {
-            $requestData['file_image'] = ImageUpload::uploadImage($request, 'file_image');
+            $destinationPath = public_path("/storage" . '/' . Auth::user()->id);
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+            $files = $request->file('file_image');
+            $j =0;
+            
+            foreach ($files as $file) {
+                $input['imagename'][$j] = Auth::user()->id . '/' . time()  . '.' . $file->extension();
+                ($file->move($destinationPath, time() . '.' . $file->extension()));
+               
+                sleep(1);
+                
+                $j++;
+            }
+               
         }
-
+       
         Product::create($requestData);
+        
+    $i = 0;
+    while($i!=count($files)){
+        $name =  Product::select('id')
+        ->orderBy('id', 'desc')
+        ->limit(1)
+        ->get();
+        $path = $input['imagename'][$i];
+        $ProductImg = new ProductImg;
+        $ProductImg->path = $path;
+        $str = $name[0]->getOriginal();
+        $s =intval(strval(implode($str)));
+        $ProductImg->product =$s ;
+        $ProductImg->save();
+        sleep(1);
+        $i++;
+    }
+        
         return redirect('products')->with('flash_message', 'Product added!');
     }
 
@@ -81,8 +117,10 @@ class ProductsController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
+        $productImg = Product::join('product_img','product_img.product','=','products.id')->where('products.id',$id)->get()->toArray();
+        // dd($product);
 
-        return view('admin.products.show', compact('product'));
+        return view('admin.products.show', ['product'=>$product,'productImg'=>$productImg]);
     }
 
     /**

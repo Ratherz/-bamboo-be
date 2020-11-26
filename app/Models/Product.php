@@ -30,7 +30,6 @@ class Product extends Model
         'price',
         'unit',
         'category_id',
-        'file_image',
         'user_id'
     ];
 

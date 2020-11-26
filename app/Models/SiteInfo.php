@@ -10,7 +10,8 @@ class SiteInfo
             "icon" => "fas fa-tachometer-alt",
             "url" => "/admin",
             "sublist" => [
-                ["name" => "หน้าแรก", "icon" => "fas fa-home", "url" => "/"]
+                ["name" => "หน้าแรก", "icon" => "fas fa-home", "url" => "/"],
+                ["name" => "ผู้ประกอบการ", "icon" => "fas fa-street-view" , "url" => "/operator"]
             ]
         ],
         [
@@ -25,8 +26,32 @@ class SiteInfo
                 ["name" => "เพิ่มโพสต์กิจกรรม", "icon" => "far fa-newspaper", "url" => "/activity"],
             ]
         ],
-        ["name" => "CoolAdmin", "icon" => "fa fa-link", "url" => "https://colorlib.com/polygon/cooladmin/index.html"],
-        ["name" => "ตัวช่วยสร้าง", "icon" => "fas fa-desktop", "url" => "/generator"]
+        [   "name" => "ร้านค้า", "icon" => "fas fa-shopping-cart" , "url" => "/shop"]
+
+        //https://colorlib.com/polygon/cooladmin/index.html
+    ];
+
+    public static $SideMenuUser = [
+        [
+            "name" => "แดชบอร์ด",
+            "icon" => "fas fa-tachometer-alt",
+            "url" => "/admin",
+            "sublist" => [
+                ["name" => "หน้าแรก", "icon" => "fas fa-home", "url" => "/"],
+                ["name" => "ผู้ประกอบการ", "icon" => "fas fa-street-view" , "url" => "/operator"]
+            ]
+        ],
+        [
+            "name" => "จัดการ",
+            "icon" => "fas fa-tachometer-alt",
+            "url" => "/admin",
+            "sublist" => [
+                ["name" => "สินค้า/ผลิตภัณฑ์", "icon" => "fas fa-shopping-bag", "url" => "/products"],
+                ["name" => "เพิ่มโพสต์กิจกรรม", "icon" => "far fa-newspaper", "url" => "/activity"],
+            ]
+        ],
+        [   "name" => "ร้านค้า", "icon" => "fas fa-shopping-cart" , "url" => "/shop"]
+
         //https://colorlib.com/polygon/cooladmin/index.html
     ];
 }

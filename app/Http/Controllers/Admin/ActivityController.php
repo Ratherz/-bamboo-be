@@ -46,6 +46,8 @@ class ActivityController extends Controller
         $request['post_excerpt'] = '';
         $request['post_status'] = 'draft';
         $request['ping_status'] = 'open';
+        $request['post_name'] = strval(time());
+        $request['post_content'] .= '<br><br><br><br><br><br><br>'.'<h3>ลิงก์ที่เกี่ยวข้อง</h3><br>'.$request['link'];
         $request['post_password'] = '';
         $request['to_ping'] = '';
         $request['pinged'] = '';
@@ -55,9 +57,16 @@ class ActivityController extends Controller
         $request['menu_order'] = 0;
         $request['post_type'] = 'post';
         $request['post_mime_type'] = '';
-        $id = Activity::create($request->all())->id;
+        $request['post_date']=now();
+        $request['post_date_gmt'] = $request['post_modified']=$request['post_modified_gmt']= now();
+
+        Activity::create($request->all());
+        $activ = Activity::selectRaw('max(ID) as id')->get()->first();
+        // dd($activ);
+        // dd($id["id"]);
         $activity['user_id'] = Auth::user()->id;
-        $activity['post_id'] = $id;
+        $activity['post_id'] = $activ['id'];
+
         User_Post::create($activity);
         // dd($request->all());
         return Redirect::back()->with('result','โพสต์กิจกรรมสำเร็จ');

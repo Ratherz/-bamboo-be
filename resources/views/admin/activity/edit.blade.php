@@ -21,13 +21,6 @@
                                 value="{{ $activity->post_title }}" required>
                         </div>
                     </div>
-                    <div class="col-md-6 col-12">
-                        <div class="form-group">
-                            <label for="post_name">SLUG</label>
-                            <input id="post_name" class="form-control" value="{{ $activity->post_name }}" type="text"
-                                name="post_name">
-                        </div>
-                    </div>
                     <div class="col-md-12 mb-3">
                         <h5>ตั้งค่าเพิ่มเติม</h5>
                         <div class="form-check" required>
@@ -46,7 +39,6 @@
                                 cols="80">{{ $activity->post_content }} </textarea>
                         </div>
                     </div>
-
                 </div>
                 <button type="submit" class="btn btn-success">แก้ไขกิจกรรม</button>
         </div>

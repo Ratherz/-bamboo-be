@@ -55,9 +55,7 @@
         .modal-backdrop .fade .show {
             display: none !important;
         }
-        .note-modal-backdrop {
-            display: none !important;
-        }
+
         #map {
             height: 60vh;
         }

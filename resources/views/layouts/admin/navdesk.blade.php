@@ -12,7 +12,7 @@ background-size: 100% ;">
                 </form>
                 <div class="header-button" style="background-color:rgba(255,255,255,0.7); padding:5px;border-radius: 15px">
                     <div class="noti-wrap">
-                        <div class="noti__item js-item-menu">
+                        {{-- <div class="noti__item js-item-menu">
                             <i class="zmdi zmdi-comment-more"></i>
                             <span class="quantity">1</span>
                             <div class="mess-dropdown js-dropdown">
@@ -45,8 +45,8 @@ background-size: 100% ;">
                                     <a href="#">View all messages</a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="noti__item js-item-menu">
+                        </div> --}}
+                        {{-- <div class="noti__item js-item-menu">
                             <i class="zmdi zmdi-email"></i>
                             <span class="quantity">1</span>
                             <div class="email-dropdown js-dropdown">
@@ -87,7 +87,7 @@ background-size: 100% ;">
                                     <a href="#">See all emails</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="noti__item js-item-menu">
                             <i class="zmdi zmdi-notifications"></i>
                             <span class="quantity">3</span>

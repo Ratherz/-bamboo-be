@@ -57,6 +57,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'id',
         'email',
         'email_verified_at',
         'password',
@@ -118,5 +119,15 @@ class User extends Authenticatable
             $rolesText .= $role->role->label . ', <br>';
         }
         return $rolesText;
+    }
+    public function getIdRoles()
+    {
+        $rolesId = '';
+        $roles = $this->roles;
+        foreach ($roles as $role) {
+            // $rolesText .= $role->role->label . ', <br>';
+            $rolesId .= $role->role->id ;
+        }
+        return $rolesId;
     }
 }

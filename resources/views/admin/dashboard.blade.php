@@ -3,13 +3,14 @@
 @section('content')
 <section class="wp-chart mb-4 card">
     <div class="card-header">
-        <h3>ข้อมูลการเข้าชม</h3>
+        <h3>ข้อมูลหมวดหมู่สินค้า</h3>
     </div>
     <div class="row">
-        <div class="col-md-8">
-            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <div class="col-md-12">
+            <center>
+                <div id="chartContainer1" style="height: 370px; width: 90%;"></div>
+            </center>
         </div>
-        <div class="col-md-4"></div>
     </div>
     <hr>
 </section>
@@ -25,181 +26,170 @@
     </div>
 
     @endif --}}
-    <h3>ผู้ประกอบการ</h3>
-    <div class="card">
-        <div class="card-header bg-success ">
-            <h3 class="text-white">แผนที่</h3>
-        </div>
-        <div id="map"></div>
-    </div>
     <hr>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header bg-success text-white">
                     ผู้ประกอบการรายอื่น ๆ
                 </div>
-                <div class="card-body">
-                    <table class="table data-table table-hover table-responsive table-bordered">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>ข้อมูล</th>
-                                <th>บทบาท</th>
-                                <th>โปรไฟล์</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (App\Models\User::whereRaw("id not in (select user_id from role_user where role_id
-                            =
-                            1)")->get() as $user)
-                            <tr>
-                                @php
-                                $address = "ที่อยู่ " . $user->address."<br>";
-                                $address .= " ,หมู่ที่ " . $user->address_no."<br>";
-                                $address .= " ,ซอย " . $user->zoi."<br>";
-                                $address .= " ,ถนน " . $user->road."<br>";
-                                $address .= " ,ตำบล " . $user->district."<br>";
-                                $address .= " ,อำเภอ " . $user->amphure."<br>";
-                                $address .= " ,จังหวัด " . $user->province."<br>";
-                                @endphp
-                                <td>{{ $loop->iteration }}</td>
-                                <td>
-                                    <div id="user{{ $user->id }}" role="tablist" aria-multiselectable="true">
-                                        <div class="card">
-                                            <h5 class="mb-0 card-header">
-                                                <a data-toggle="collapse" data-parent="#user{{ $user->id }}"
-                                                    href="#section{{ $user->id }}" aria-expanded="true"
-                                                    aria-controls="section{{ $user->id }}"
-                                                    class="btn btn-info text-white">
-                                                    {{ $user->first_name }} {{ $user->last_name }}
-                                                </a>
-                                            </h5>
-                                            <div id="section{{ $user->id }}" class="collapse in" role="tabpanel"
-                                                aria-labelledby="headerUser{{ $user->id }}">
-
-
-                                                {!! $address !!}
-                                                {{ $user->phone }}
-                                                {{ $user->email }}
-                                                {{ $user->shop_name }}
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>{!! $user->getTextRoles() !!}</td>
-                                <td><a href="#" class="btn btn-info"><i class="fa fa-user-circle"
-                                            aria-hidden="true"></i>
-                                        ดูโปรไฟล์</a></td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-success text-white">
-                    รายการสินค้า
-                </div>
-                <div class="card-body">
-                    <table class="table data-table table-hover table-responsive table-bordered">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>ชื่อสินค้า</th>
-                                <th>รูปภาพ</th>
-                                <th>ราคาต่อหน่วย (บาท)</th>
-                                <th>หน่วยเป็น</th>
-                                <th>จาก</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (App\Models\Product::all() as $product)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $product->name }}</td>
-                                <td>
-                                    <img src="{{ url('public/'.Storage::url($product->file_image)) }}"
-                                        style="width: 150px;height: 150px;object-fit:cover"
-                                        onclick="window.open('{{ url('public/'.Storage::url($product->file_image)) }}','_blank')">
-                                </td>
-                                <td>{{ $product->price }}</td>
-                                <td>{{ $product->unit }}</td>
-                                <td><a href="{{ url('profile/'.$product->user_id) }}" class="btn btn-info"><i
-                                            class="fa fa-user-circle" aria-hidden="true"></i>
-                                        ดูข้อมูลเพิ่มเติม</a></td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                <br/>
+                <center>
+                    <div id="chartContainer2" style="height: 400px; width: 90%;"></div>
+                </center>
+                <br/>
             </div>
         </div>
     </div>
 </section>
-<div class="content" id="info-popup" style="display: none">
-    <h5>%name%</h5>
-    <hr>
-    <p>%roles%</p>
-    <a href="%url%" class="btn btn-info text-white"><i class="fa fa-info-circle" aria-hidden="true"></i> ดูโปรไฟล์</a>
-    <a href="%urlmap%" class="btn btn-info text-white"><i class="fa fa-map" aria-hidden="true"></i> เดินทางไป</a>
-</div>
+
 @endsection
 
 @section('scripts')
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-<script
-    src="https://maps.googleapis.com/maps/api/js?key=[            API KEY              ]&callback=initMap&libraries=places"
-    defer></script>
-{{-- <script>
-    const myLatlng = {
-            lat: 13.736717
-            , lng: 100.523186
-        };
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
-        function initMap() {
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 5
-                , center: myLatlng
-            , });
-            //ลูปสร้างมาร์กเกอร์
-            @foreach(\App\Models\User::whereRaw("lat is not null and lng is not null")->get() as $user)
-                var html = $("#info-popup").html();
-                html = html.replace("%name%","{{ $user->first_name }} {{ $user->last_name }}");
-                html = html.replace("%roles%","{{ $user->getTextRoles() }}");
-                html = html.replace("%url%","{{ url('view-profile/')."/{$user->id}" }}");
-                html = html.replace("%urlmap%","https://www.google.com/maps/place/{{ $user->lat }},{{ $user->lng}}");
-                    {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
-                    position: {
-                            lat: {{ $user->lat }},
-                            lng: {{ $user->lng}}
-                        }
-                        ,icon : "https://developers.google.com/maps/documentation/javascript/examples/full/images/parking_lot_maps.png"
-                        , map
-                        , title: "{{ $user->first_name }} {{ $user->last_name }}"
-                    , });
+<script type="text/javascript">
+    {{$idrole = Auth::user()->getIdRoles()}}
+    @php
+        $data_points  = array();
+        $data_points_products  = array();
+        // $count = DB::table('role_user')->where('role_id', 1)->count();
+        if($idrole == 9){
+            $count = DB::table("role_user")
+                ->select(DB::raw("label , count(role_user.user_id) count "))
+                ->join('roles', 'roles.id', '=', 'role_user.role_id')
+                ->whereRaw("role_id BETWEEN 3 and 6")
+                ->groupBy("label")
+                ->havingRaw("COUNT(role_user.user_id)")
+                ->get();
 
-                    {{ 'shop'.$loop->iteration }}.addListener("click", () => {
-                        map.setZoom(10);
-                        map.setCenter({{ 'shop'.$loop->iteration }}.getPosition());
-                    });
-
-                    map.addListener("center_changed", () => {
-                        window.setTimeout(() => {
-                            map.panTo({{ 'shop'.$loop->iteration }}.getPosition());
-                        }, 8000);
-                    });
-                    {{ 'shop'.$loop->iteration }}.addListener("click", () => {
-                        infowindow{{ $user->id }}.open(map, {{ 'shop'.$loop->iteration }});
-                    });
-                    var infowindow{{ $user->id }} = new google.maps.InfoWindow({
-                        content: html,
-                    });
-
-            @endforeach
+            $countproducts = DB::table("products")
+                ->select(DB::raw(" categories.name, count(category_id) count "))
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->whereRaw(" categories.id BETWEEN 1 and 2 ")
+                ->groupBy("categories.name")
+                ->havingRaw("COUNT(category_id)")
+                ->get();
         }
-</script> --}}
+        elseif($idrole == 3 || $idrole == 4 || $idrole == 5 || $idrole == 6){
+            $count = DB::table("role_user")
+                ->select(DB::raw("label , count(role_user.user_id) count "))
+                ->join('roles', 'roles.id', '=', 'role_user.role_id')
+                ->whereRaw("role_id = 9 or role_id = 7")
+                ->groupBy("label")
+                ->havingRaw("COUNT(role_user.user_id)")
+                ->get();
+
+            $countproducts = DB::table("products")
+                ->select(DB::raw(" categories.name, count(category_id) count "))
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->whereRaw("categories.id = 3 or categories.id = 10 or categories.id BETWEEN 4 and 5  ")
+                ->groupBy("categories.name")
+                ->havingRaw("COUNT(category_id)")
+                ->get();
+        }
+        elseif($idrole == 7){
+            $count = DB::table("role_user")
+                ->select(DB::raw("label , count(role_user.user_id) count "))
+                ->join('roles', 'roles.id', '=', 'role_user.role_id')
+                ->whereRaw("role_id BETWEEN 3 and 6 or role_id = 8")
+                ->groupBy("label")
+                ->havingRaw("COUNT(role_user.user_id)")
+                ->get();
+
+            $countproducts = DB::table("products")
+                ->select(DB::raw(" categories.name, count(category_id) count "))
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->whereRaw("categories.id BETWEEN 6 and 9 or categories.id = 11 or categories.id BETWEEN 1 and 2  ")
+                ->groupBy("categories.name")
+                ->havingRaw("COUNT(category_id)")
+                ->get();
+        }
+        elseif($idrole == 8){
+            $count = DB::table("role_user")
+                ->select(DB::raw("label , count(role_user.user_id) count "))
+                ->join('roles', 'roles.id', '=', 'role_user.role_id')
+                ->whereRaw("role_id = $idrole-1 ")
+                ->groupBy("label")
+                ->havingRaw("COUNT(role_user.user_id)")
+                ->get();
+
+            $countproducts = DB::table("products")
+                ->select(DB::raw(" categories.name, count(category_id) count "))
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->whereRaw("categories.id BETWEEN 4 and 5 ")
+                ->groupBy("categories.name")
+                ->havingRaw("COUNT(category_id)")
+                ->get();
+        }
+        else{
+            $count = DB::table("role_user")
+                ->select(DB::raw("label , count(role_user.user_id) count "))
+                ->join('roles', 'roles.id', '=', 'role_user.role_id')
+                ->whereRaw("role_id BETWEEN 3 and 8 ")
+                ->groupBy("label")
+                ->havingRaw("COUNT(role_user.user_id)")
+                ->get();
+
+            $countproducts = DB::table("products")
+                ->select(DB::raw(" categories.name, count(category_id) count "))
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->whereRaw("categories.id BETWEEN 1 and 11 ")
+                ->groupBy("categories.name")
+                ->havingRaw("COUNT(category_id)")
+                ->get();
+        }
+    @endphp
+
+    @foreach($count as $countuser)
+        @php
+            $point = array("label" => $countuser->label, "y" => $countuser->count);
+            array_push($data_points, $point);
+        @endphp
+    @endforeach
+
+    @foreach($countproducts as $produts)
+        @php
+            $point = array("label" => $produts->name, "y" => $produts->count);
+            array_push($data_points_products, $point);
+        @endphp
+    @endforeach
+
+    window.onload = function () {
+        var chart1 = new CanvasJS.Chart("chartContainer1",{
+            animationEnabled: true,
+            exportEnabled: true,
+            theme: "light1", // "light1", "light2", "dark1", "dark2"
+            title:{
+                text: "หมวดหมู่สินค้า"
+            },
+            axisY: {
+            includeZero: true
+            },
+            data: [{
+                type: "column", //change type to bar, line, area, pie, etc
+                //indexLabel: "{y}", //Shows y value on all Data Points
+                indexLabelFontColor: "#5A5757",
+                indexLabelFontSize: 16,
+                indexLabelPlacement: "outside",
+                dataPoints: @php echo json_encode($data_points_products, JSON_NUMERIC_CHECK); @endphp
+            }]
+        });
+        var chart2 = new CanvasJS.Chart("chartContainer2",{
+            title :{
+            // text: "Live Data"
+            },
+            data: [{
+            type: "column",
+            dataPoints : @php echo json_encode($data_points, JSON_NUMERIC_CHECK); @endphp
+            }]
+        });
+
+        chart1.render();
+        chart2.render();
+    }
+</script>
+
+
 @endsection

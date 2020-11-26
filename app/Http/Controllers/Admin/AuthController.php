@@ -25,7 +25,8 @@ class AuthController extends Controller
             $requestData['file_image'] = $upload->uploadImage($request,'file_image');
         }
         // dd($requestData);
-        $user = \App\Models\User::firstOrFail('id', \Auth::user()->id);
+        // dd(\Auth::user()->id);
+        $user = \App\Models\User::findOrFail(\Auth::user()->id);
         // dd($user);
         $user->update($requestData);
         if (!empty($request->Roles)) {

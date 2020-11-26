@@ -59,6 +59,7 @@
                         App\Models\RoleUser::where('user_id', Auth::user()->id)->pluck('role_id'), ['class' =>
                         'form-control']) !!}
                     </div>
+
                     <div class="col-12">
                         <hr>
                         <h5>ข้อมูลที่อยู่ที่สามารถติดต่อได้ <i class="fas fa-home"></i></h5>
@@ -212,7 +213,8 @@
 @section('scripts')
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script
-        src="https://maps.googleapis.com/maps/api/js?key=[            API KEY              ]&callback=initMap&libraries=places"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtPKAiQFAwF6J7FAimVOGkJwJmUb2o1Tg&callback=initMap&libraries=places"
+        {{-- src="https://maps.googleapis.com/maps/api/js?key=[            API KEY              ]&callback=initMap&libraries=places" --}}
         defer></script>
     <script>
         $('#file_image').on('change', function(e) {
