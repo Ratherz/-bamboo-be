@@ -101,7 +101,7 @@
 
     function showPosition(position) {
         $("#lat").val(position.coords.latitude);
-        $("lng").val(position.coords.longitude);
+        $("#lng").val(position.coords.longitude);
         newWD = new google.maps.InfoWindow({
             position: {lat: position.coords.latitude, lng: position.coords.longitude} });
         newWD.setContent(

@@ -61,223 +61,228 @@
                         </thead>
                         <tbody>
                             @php
-                                $idrole = Auth::user()->getIdRoles()
+                            $idrole = Auth::user()->getIdRoles()
                             @endphp
                             @if($idrole == 9)
-                                @foreach(\App\Models\User::whereRaw("id in (select user_id from role_user where role_id BETWEEN 3 and 6 )")->get() as $user)
-                                <tr>
-                                    @php
-                                    $address = "ที่อยู่ " . $user->address."<br>";
-                                    $address .= " ,หมู่ที่ " . $user->address_no."<br>";
-                                    $address .= " ,ซอย " . $user->zoi."<br>";
-                                    $address .= " ,ถนน " . $user->road."<br>";
-                                    $address .= " ,ตำบล " . $user->district."<br>";
-                                    $address .= " ,อำเภอ " . $user->amphure."<br>";
-                                    $address .= " ,จังหวัด " . $user->province."<br>";
-                                    @endphp
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>
-                                        <div id="user{{ $user->id }}" role="tablist" aria-multiselectable="true">
-                                            <div class="card">
-                                                <h5 class="mb-0 card-header">
-                                                    <a data-toggle="collapse" data-parent="#user{{ $user->id }}"
-                                                        href="#section{{ $user->id }}" aria-expanded="true"
-                                                        aria-controls="section{{ $user->id }}"
-                                                        class="btn btn-info text-white">
-                                                        {{ $user->first_name }} {{ $user->last_name }}
-                                                    </a>
-                                                </h5>
-                                                <div id="section{{ $user->id }}" class="collapse in" role="tabpanel"
-                                                    aria-labelledby="headerUser{{ $user->id }}">
+                            @foreach(\App\Models\User::whereRaw("id in (select user_id from role_user where role_id
+                            BETWEEN 3 and 6 )")->get() as $user)
+                            <tr>
+                                @php
+                                $address = "ที่อยู่ " . $user->address."<br>";
+                                $address .= " ,หมู่ที่ " . $user->address_no."<br>";
+                                $address .= " ,ซอย " . $user->zoi."<br>";
+                                $address .= " ,ถนน " . $user->road."<br>";
+                                $address .= " ,ตำบล " . $user->district."<br>";
+                                $address .= " ,อำเภอ " . $user->amphure."<br>";
+                                $address .= " ,จังหวัด " . $user->province."<br>";
+                                @endphp
+                                <td>{{ $loop->iteration }}</td>
+                                <td>
+                                    <div id="user{{ $user->id }}" role="tablist" aria-multiselectable="true">
+                                        <div class="card">
+                                            <h5 class="mb-0 card-header">
+                                                <a data-toggle="collapse" data-parent="#user{{ $user->id }}"
+                                                    href="#section{{ $user->id }}" aria-expanded="true"
+                                                    aria-controls="section{{ $user->id }}"
+                                                    class="btn btn-info text-white">
+                                                    {{ $user->first_name }} {{ $user->last_name }}
+                                                </a>
+                                            </h5>
+                                            <div id="section{{ $user->id }}" class="collapse in" role="tabpanel"
+                                                aria-labelledby="headerUser{{ $user->id }}">
 
 
-                                                    {!! $address !!}
-                                                    {{ $user->phone }}
-                                                    {{ $user->email }}
-                                                    {{ $user->shop_name }}
+                                                {!! $address !!}
+                                                {{ $user->phone }}
+                                                {{ $user->email }}
+                                                {{ $user->shop_name }}
 
-                                                </div>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>{!! $user->getTextRoles() !!}</td>
-                                    <td><a href="{{ url('shop-store/').'/'.$user->shop_name}}" class="btn btn-info"><i class="fa fa-user-circle"
-                                                aria-hidden="true"></i>
-                                            ดูโปรไฟล์</a></td>
-                                </tr>
-                                @endforeach
+                                    </div>
+                                </td>
+                                <td>{!! $user->getTextRoles() !!}</td>
+                                <td><a href="{{ url('shop-store/').'/'.$user->shop_name}}" class="btn btn-info"><i
+                                            class="fa fa-user-circle" aria-hidden="true"></i>
+                                        ดูโปรไฟล์</a></td>
+                            </tr>
+                            @endforeach
                             @elseif($idrole == 3 || $idrole == 4 || $idrole == 5 || $idrole == 6)
-                                @foreach(\App\Models\User::whereRaw("id in (select user_id from role_user where role_id = 7 or role_id = 9)")->get() as $user)
-                                <tr>
-                                    @php
-                                    $address = "ที่อยู่ " . $user->address."<br>";
-                                    $address .= " ,หมู่ที่ " . $user->address_no."<br>";
-                                    $address .= " ,ซอย " . $user->zoi."<br>";
-                                    $address .= " ,ถนน " . $user->road."<br>";
-                                    $address .= " ,ตำบล " . $user->district."<br>";
-                                    $address .= " ,อำเภอ " . $user->amphure."<br>";
-                                    $address .= " ,จังหวัด " . $user->province."<br>";
-                                    @endphp
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>
-                                        <div id="user{{ $user->id }}" role="tablist" aria-multiselectable="true">
-                                            <div class="card">
-                                                <h5 class="mb-0 card-header">
-                                                    <a data-toggle="collapse" data-parent="#user{{ $user->id }}"
-                                                        href="#section{{ $user->id }}" aria-expanded="true"
-                                                        aria-controls="section{{ $user->id }}"
-                                                        class="btn btn-info text-white">
-                                                        {{ $user->first_name }} {{ $user->last_name }}
-                                                    </a>
-                                                </h5>
-                                                <div id="section{{ $user->id }}" class="collapse in" role="tabpanel"
-                                                    aria-labelledby="headerUser{{ $user->id }}">
+                            @foreach(\App\Models\User::whereRaw("id in (select user_id from role_user where role_id = 7
+                            or role_id = 9)")->get() as $user)
+                            <tr>
+                                @php
+                                $address = "ที่อยู่ " . $user->address."<br>";
+                                $address .= " ,หมู่ที่ " . $user->address_no."<br>";
+                                $address .= " ,ซอย " . $user->zoi."<br>";
+                                $address .= " ,ถนน " . $user->road."<br>";
+                                $address .= " ,ตำบล " . $user->district."<br>";
+                                $address .= " ,อำเภอ " . $user->amphure."<br>";
+                                $address .= " ,จังหวัด " . $user->province."<br>";
+                                @endphp
+                                <td>{{ $loop->iteration }}</td>
+                                <td>
+                                    <div id="user{{ $user->id }}" role="tablist" aria-multiselectable="true">
+                                        <div class="card">
+                                            <h5 class="mb-0 card-header">
+                                                <a data-toggle="collapse" data-parent="#user{{ $user->id }}"
+                                                    href="#section{{ $user->id }}" aria-expanded="true"
+                                                    aria-controls="section{{ $user->id }}"
+                                                    class="btn btn-info text-white">
+                                                    {{ $user->first_name }} {{ $user->last_name }}
+                                                </a>
+                                            </h5>
+                                            <div id="section{{ $user->id }}" class="collapse in" role="tabpanel"
+                                                aria-labelledby="headerUser{{ $user->id }}">
 
 
-                                                    {!! $address !!}
-                                                    {{ $user->phone }}
-                                                    {{ $user->email }}
-                                                    {{ $user->shop_name }}
+                                                {!! $address !!}
+                                                {{ $user->phone }}
+                                                {{ $user->email }}
+                                                {{ $user->shop_name }}
 
-                                                </div>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>{!! $user->getTextRoles() !!}</td>
-                                    <td><a href="{{ url('shop-store/').'/'.$user->shop_name}}" class="btn btn-info"><i class="fa fa-user-circle"
-                                                aria-hidden="true"></i>
-                                            ดูโปรไฟล์</a></td>
-                                </tr>
-                                @endforeach
+                                    </div>
+                                </td>
+                                <td>{!! $user->getTextRoles() !!}</td>
+                                <td><a href="{{ url('shop-store/').'/'.$user->shop_name}}" class="btn btn-info"><i
+                                            class="fa fa-user-circle" aria-hidden="true"></i>
+                                        ดูโปรไฟล์</a></td>
+                            </tr>
+                            @endforeach
                             @elseif ($idrole == 7)
-                                @foreach(\App\Models\User::whereRaw("id in (select user_id from role_user where role_id BETWEEN 3 and 6 or role_id = $idrole+1 )")->get() as $user)
-                                <tr>
-                                    @php
-                                    $address = "ที่อยู่ " . $user->address."<br>";
-                                    $address .= " ,หมู่ที่ " . $user->address_no."<br>";
-                                    $address .= " ,ซอย " . $user->zoi."<br>";
-                                    $address .= " ,ถนน " . $user->road."<br>";
-                                    $address .= " ,ตำบล " . $user->district."<br>";
-                                    $address .= " ,อำเภอ " . $user->amphure."<br>";
-                                    $address .= " ,จังหวัด " . $user->province."<br>";
-                                    @endphp
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>
-                                        <div id="user{{ $user->id }}" role="tablist" aria-multiselectable="true">
-                                            <div class="card">
-                                                <h5 class="mb-0 card-header">
-                                                    <a data-toggle="collapse" data-parent="#user{{ $user->id }}"
-                                                        href="#section{{ $user->id }}" aria-expanded="true"
-                                                        aria-controls="section{{ $user->id }}"
-                                                        class="btn btn-info text-white">
-                                                        {{ $user->first_name }} {{ $user->last_name }}
-                                                    </a>
-                                                </h5>
-                                                <div id="section{{ $user->id }}" class="collapse in" role="tabpanel"
-                                                    aria-labelledby="headerUser{{ $user->id }}">
+                            @foreach(\App\Models\User::whereRaw("id in (select user_id from role_user where role_id
+                            BETWEEN 3 and 6 or role_id = $idrole+1 )")->get() as $user)
+                            <tr>
+                                @php
+                                $address = "ที่อยู่ " . $user->address."<br>";
+                                $address .= " ,หมู่ที่ " . $user->address_no."<br>";
+                                $address .= " ,ซอย " . $user->zoi."<br>";
+                                $address .= " ,ถนน " . $user->road."<br>";
+                                $address .= " ,ตำบล " . $user->district."<br>";
+                                $address .= " ,อำเภอ " . $user->amphure."<br>";
+                                $address .= " ,จังหวัด " . $user->province."<br>";
+                                @endphp
+                                <td>{{ $loop->iteration }}</td>
+                                <td>
+                                    <div id="user{{ $user->id }}" role="tablist" aria-multiselectable="true">
+                                        <div class="card">
+                                            <h5 class="mb-0 card-header">
+                                                <a data-toggle="collapse" data-parent="#user{{ $user->id }}"
+                                                    href="#section{{ $user->id }}" aria-expanded="true"
+                                                    aria-controls="section{{ $user->id }}"
+                                                    class="btn btn-info text-white">
+                                                    {{ $user->first_name }} {{ $user->last_name }}
+                                                </a>
+                                            </h5>
+                                            <div id="section{{ $user->id }}" class="collapse in" role="tabpanel"
+                                                aria-labelledby="headerUser{{ $user->id }}">
 
 
-                                                    {!! $address !!}
-                                                    {{ $user->phone }}
-                                                    {{ $user->email }}
-                                                    {{ $user->shop_name }}
+                                                {!! $address !!}
+                                                {{ $user->phone }}
+                                                {{ $user->email }}
+                                                {{ $user->shop_name }}
 
-                                                </div>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>{!! $user->getTextRoles() !!}</td>
-                                    <td><a href="{{ url('shop-store/').'/'.$user->shop_name}}" class="btn btn-info"><i class="fa fa-user-circle"
-                                                aria-hidden="true"></i>
-                                            ดูโปรไฟล์</a></td>
-                                </tr>
-                                @endforeach
+                                    </div>
+                                </td>
+                                <td>{!! $user->getTextRoles() !!}</td>
+                                <td><a href="{{ url('shop-store/').'/'.$user->shop_name}}" class="btn btn-info"><i
+                                            class="fa fa-user-circle" aria-hidden="true"></i>
+                                        ดูโปรไฟล์</a></td>
+                            </tr>
+                            @endforeach
                             @elseif ($idrole == 8)
-                                @foreach(\App\Models\User::whereRaw("id in (select user_id from role_user where role_id = $idrole-1 )")->get() as $user)
-                                <tr>
-                                    @php
-                                    $address = "ที่อยู่ " . $user->address."<br>";
-                                    $address .= " ,หมู่ที่ " . $user->address_no."<br>";
-                                    $address .= " ,ซอย " . $user->zoi."<br>";
-                                    $address .= " ,ถนน " . $user->road."<br>";
-                                    $address .= " ,ตำบล " . $user->district."<br>";
-                                    $address .= " ,อำเภอ " . $user->amphure."<br>";
-                                    $address .= " ,จังหวัด " . $user->province."<br>";
-                                    @endphp
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>
-                                        <div id="user{{ $user->id }}" role="tablist" aria-multiselectable="true">
-                                            <div class="card">
-                                                <h5 class="mb-0 card-header">
-                                                    <a data-toggle="collapse" data-parent="#user{{ $user->id }}"
-                                                        href="#section{{ $user->id }}" aria-expanded="true"
-                                                        aria-controls="section{{ $user->id }}"
-                                                        class="btn btn-info text-white">
-                                                        {{ $user->first_name }} {{ $user->last_name }}
-                                                    </a>
-                                                </h5>
-                                                <div id="section{{ $user->id }}" class="collapse in" role="tabpanel"
-                                                    aria-labelledby="headerUser{{ $user->id }}">
+                            @foreach(\App\Models\User::whereRaw("id in (select user_id from role_user where role_id =
+                            $idrole-1 )")->get() as $user)
+                            <tr>
+                                @php
+                                $address = "ที่อยู่ " . $user->address."<br>";
+                                $address .= " ,หมู่ที่ " . $user->address_no."<br>";
+                                $address .= " ,ซอย " . $user->zoi."<br>";
+                                $address .= " ,ถนน " . $user->road."<br>";
+                                $address .= " ,ตำบล " . $user->district."<br>";
+                                $address .= " ,อำเภอ " . $user->amphure."<br>";
+                                $address .= " ,จังหวัด " . $user->province."<br>";
+                                @endphp
+                                <td>{{ $loop->iteration }}</td>
+                                <td>
+                                    <div id="user{{ $user->id }}" role="tablist" aria-multiselectable="true">
+                                        <div class="card">
+                                            <h5 class="mb-0 card-header">
+                                                <a data-toggle="collapse" data-parent="#user{{ $user->id }}"
+                                                    href="#section{{ $user->id }}" aria-expanded="true"
+                                                    aria-controls="section{{ $user->id }}"
+                                                    class="btn btn-info text-white">
+                                                    {{ $user->first_name }} {{ $user->last_name }}
+                                                </a>
+                                            </h5>
+                                            <div id="section{{ $user->id }}" class="collapse in" role="tabpanel"
+                                                aria-labelledby="headerUser{{ $user->id }}">
 
 
-                                                    {!! $address !!}
-                                                    {{ $user->phone }}
-                                                    {{ $user->email }}
-                                                    {{ $user->shop_name }}
+                                                {!! $address !!}
+                                                {{ $user->phone }}
+                                                {{ $user->email }}
+                                                {{ $user->shop_name }}
 
-                                                </div>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>{!! $user->getTextRoles() !!}</td>
-                                    <td><a href="{{ url('shop-store/').'/'.$user->shop_name}}" class="btn btn-info"><i class="fa fa-user-circle"
-                                                aria-hidden="true"></i>
-                                            ดูโปรไฟล์</a></td>
-                                </tr>
-                                @endforeach
+                                    </div>
+                                </td>
+                                <td>{!! $user->getTextRoles() !!}</td>
+                                <td><a href="{{ url('shop-store/').'/'.$user->shop_name}}" class="btn btn-info"><i
+                                            class="fa fa-user-circle" aria-hidden="true"></i>
+                                        ดูโปรไฟล์</a></td>
+                            </tr>
+                            @endforeach
                             @else
-                                @foreach (App\Models\User::whereRaw("id not in (select user_id from role_user where role_id = 1)")->get() as $user)
-                                <tr>
-                                    @php
-                                    $address = "ที่อยู่ " . $user->address."<br>";
-                                    $address .= " ,หมู่ที่ " . $user->address_no."<br>";
-                                    $address .= " ,ซอย " . $user->zoi."<br>";
-                                    $address .= " ,ถนน " . $user->road."<br>";
-                                    $address .= " ,ตำบล " . $user->district."<br>";
-                                    $address .= " ,อำเภอ " . $user->amphure."<br>";
-                                    $address .= " ,จังหวัด " . $user->province."<br>";
-                                    @endphp
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>
-                                        <div id="user{{ $user->id }}" role="tablist" aria-multiselectable="true">
-                                            <div class="card">
-                                                <h5 class="mb-0 card-header">
-                                                    <a data-toggle="collapse" data-parent="#user{{ $user->id }}"
-                                                        href="#section{{ $user->id }}" aria-expanded="true"
-                                                        aria-controls="section{{ $user->id }}"
-                                                        class="btn btn-info text-white">
-                                                        {{ $user->first_name }} {{ $user->last_name }}
-                                                    </a>
-                                                </h5>
-                                                <div id="section{{ $user->id }}" class="collapse in" role="tabpanel"
-                                                    aria-labelledby="headerUser{{ $user->id }}">
+                            @foreach (App\Models\User::whereRaw("id not in (select user_id from role_user where role_id
+                            = 1)")->get() as $user)
+                            <tr>
+                                @php
+                                $address = "ที่อยู่ " . $user->address."<br>";
+                                $address .= " ,หมู่ที่ " . $user->address_no."<br>";
+                                $address .= " ,ซอย " . $user->zoi."<br>";
+                                $address .= " ,ถนน " . $user->road."<br>";
+                                $address .= " ,ตำบล " . $user->district."<br>";
+                                $address .= " ,อำเภอ " . $user->amphure."<br>";
+                                $address .= " ,จังหวัด " . $user->province."<br>";
+                                @endphp
+                                <td>{{ $loop->iteration }}</td>
+                                <td>
+                                    <div id="user{{ $user->id }}" role="tablist" aria-multiselectable="true">
+                                        <div class="card">
+                                            <h5 class="mb-0 card-header">
+                                                <a data-toggle="collapse" data-parent="#user{{ $user->id }}"
+                                                    href="#section{{ $user->id }}" aria-expanded="true"
+                                                    aria-controls="section{{ $user->id }}"
+                                                    class="btn btn-info text-white">
+                                                    {{ $user->first_name }} {{ $user->last_name }}
+                                                </a>
+                                            </h5>
+                                            <div id="section{{ $user->id }}" class="collapse in" role="tabpanel"
+                                                aria-labelledby="headerUser{{ $user->id }}">
 
 
-                                                    {!! $address !!}
-                                                    {{ $user->phone }}
-                                                    {{ $user->email }}
-                                                    {{ $user->shop_name }}
+                                                {!! $address !!}
+                                                {{ $user->phone }}
+                                                {{ $user->email }}
+                                                {{ $user->shop_name }}
 
-                                                </div>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>{!! $user->getTextRoles() !!}</td>
-                                    <td><a href="{{ url('shop-store/').'/'.$user->shop_name}}" class="btn btn-info"><i class="fa fa-user-circle"
-                                                aria-hidden="true"></i>
-                                            ดูโปรไฟล์</a></td>
-                                </tr>
-                                @endforeach
+                                    </div>
+                                </td>
+                                <td>{!! $user->getTextRoles() !!}</td>
+                                <td><a href="{{ url('shop-store/').'/'.$user->shop_name}}" class="btn btn-info"><i
+                                            class="fa fa-user-circle" aria-hidden="true"></i>
+                                        ดูโปรไฟล์</a></td>
+                            </tr>
+                            @endforeach
                             @endif
                         </tbody>
                     </table>
@@ -328,8 +333,8 @@
                     @if ($user->id === Auth::user()->id)
                         {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                         position: {
-                                lat: {{ $user->lat }},
-                                lng: {{ $user->lng}}
+                                lat: {{ $user->lat ?? 13.736717}},
+                                lng: {{ $user->lng ?? 100.523186}}
                             }
                             ,icon : "https://developers.google.com/maps/documentation/javascript/examples/full/images/parking_lot_maps.png"
                             , map
@@ -341,7 +346,7 @@
                         @case(3)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPS"
@@ -353,7 +358,7 @@
                         @case(4)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPL"
@@ -365,7 +370,7 @@
                         @case(5)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPF"
@@ -377,7 +382,7 @@
                         @case(6)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPA"
@@ -389,7 +394,7 @@
                         @case(7)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|A1DE93|10|_|CD"
@@ -401,7 +406,7 @@
                         @case(8)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|70A1D7|10|_|SME"
@@ -413,7 +418,7 @@
                         @case(9)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|A1DE93|10|_|BF"
@@ -455,7 +460,7 @@
                     @if ($user->id === Auth::user()->id)
                         {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                         position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://developers.google.com/maps/documentation/javascript/examples/full/images/parking_lot_maps.png"
@@ -468,7 +473,7 @@
                         @case(3)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPS"
@@ -480,7 +485,7 @@
                         @case(4)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPL"
@@ -492,7 +497,7 @@
                         @case(5)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPF"
@@ -504,7 +509,7 @@
                         @case(6)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPA"
@@ -516,7 +521,7 @@
                         @case(7)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|A1DE93|10|_|CD"
@@ -528,7 +533,7 @@
                         @case(8)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|70A1D7|10|_|SME"
@@ -540,7 +545,7 @@
                         @case(9)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|E0BBE4|10|_|BF"
@@ -582,7 +587,7 @@
                     @if ($user->id === Auth::user()->id)
                         {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                         position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://developers.google.com/maps/documentation/javascript/examples/full/images/parking_lot_maps.png"
@@ -595,7 +600,7 @@
                         @case(3)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPS"
@@ -607,7 +612,7 @@
                         @case(4)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPL"
@@ -619,7 +624,7 @@
                         @case(5)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPF"
@@ -631,7 +636,7 @@
                         @case(6)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPA"
@@ -643,7 +648,7 @@
                         @case(7)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|A1DE93|10|_|CD"
@@ -655,7 +660,7 @@
                         @case(8)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|70A1D7|10|_|SME"
@@ -667,7 +672,7 @@
                         @case(9)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|E0BBE4|10|_|BF"
@@ -709,7 +714,7 @@
                     @if ($user->id === Auth::user()->id)
                         {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                         position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://developers.google.com/maps/documentation/javascript/examples/full/images/parking_lot_maps.png"
@@ -722,7 +727,7 @@
                         @case(3)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPS"
@@ -734,7 +739,7 @@
                         @case(4)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPL"
@@ -746,7 +751,7 @@
                         @case(5)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPF"
@@ -758,7 +763,7 @@
                         @case(6)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPA"
@@ -770,7 +775,7 @@
                         @case(7)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|A1DE93|10|_|CD"
@@ -782,7 +787,7 @@
                         @case(8)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|70A1D7|10|_|SME"
@@ -794,7 +799,7 @@
                         @case(9)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|E0BBE4|10|_|BF"
@@ -836,7 +841,7 @@
                     @if ($user->id === Auth::user()->id)
                         {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                         position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://developers.google.com/maps/documentation/javascript/examples/full/images/parking_lot_maps.png"
@@ -849,7 +854,7 @@
                         @case(3)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPS"
@@ -861,7 +866,7 @@
                         @case(4)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPL"
@@ -873,7 +878,7 @@
                         @case(5)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPF"
@@ -885,7 +890,7 @@
                         @case(6)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|F47C7C|10|_|BPA"
@@ -897,7 +902,7 @@
                         @case(7)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|A1DE93|10|_|CD"
@@ -909,7 +914,7 @@
                         @case(8)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|70A1D7|10|_|SME"
@@ -921,7 +926,7 @@
                         @case(9)
                             {{ 'shop'.$loop->iteration }} = new google.maps.Marker({
                             position: {
-                                lat: {{ $user->lat }},
+                                lat: {{ $user->lat ?? 13.736717}},
                                 lng: {{ $user->lng}}
                             }
                             ,icon : "https://chart.apis.google.com/chart?chst=d_map_spin&chld=0.80|0|E0BBE4|10|_|BF"
