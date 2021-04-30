@@ -17,8 +17,11 @@ Route::get('change/{locale}', function ($locale) {
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
 
-    Route::get("setting", 'AuthController@setting');
+    Route::get("setting", 'AuthController@setting');    
     Route::post("setting", 'AuthController@profileUpdate');
+    Route::get("setting-profile", 'AuthController@settingProfile');    
+    // Route::post("setting", 'AuthController@profileUpdate');
+    Route::get("setting-shop", 'AuthController@settingShop');  
 
     Route::group([ 'middleware' => ['checkRegister']], function () {
         Route::get('/', 'AdminController@index');
@@ -33,7 +36,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
         Route::resource('shop-view', 'ShopViewController');
         Route::resource('shop-store', 'ShopStoreController');
         Route::resource('operator', 'OperatorContoller');
-
+        // Route::resource('settingprofile', 'SettingProfileContoller');
     });
 
     // Route::group(['prefix' => 'BPS', 'middleware' => ['checkRole:2']], function () {

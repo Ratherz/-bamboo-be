@@ -298,16 +298,16 @@
     <a href="%url%" class="btn btn-info text-white"><i class="fa fa-info-circle" aria-hidden="true"></i> ดูโปรไฟล์</a>
     <a href="%urlmap%" class="btn btn-info text-white"><i class="fa fa-map" aria-hidden="true"></i> เดินทางไป</a>
 </div>
-@endsection
 
+@endsection
 @section('scripts')
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-<script
+{{-- <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtPKAiQFAwF6J7FAimVOGkJwJmUb2o1Tg&callback=initMap&libraries=places"
-    {{-- src="https://maps.googleapis.com/maps/api/js?key=[            API KEY               ]&callback=initMap&libraries=places" --}}
+    src="https://maps.googleapis.com/maps/api/js?key=[            API KEY               ]&callback=initMap&libraries=places"
     defer>
-</script>
-<script>
+</script> --}}
+{{-- <scrip>
     const myLatlng = {
             lat: 13.736717
             , lng: 100.523186
@@ -958,6 +958,229 @@
                 @endforeach
             @endif
         }
-</script>
+</script> --}}
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
+{{-- @push('scripts') --}}
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin="">
+</script>
+<script>
+    // var mapCenter = [{{request('latitude', config('leaflet.map_center_latitude'))}}, {{request('logtitude', config('leaflet.map_center_longtitude'))}}];
+    // var map = L.map('map').setView(mapCenter, {{config('leaflet.zoom_level')}});
+    var map = L.map('map').setView([13.736717, 100.523186], 7.5);
+    var greenIcon = new L.Icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    {{$idrole = Auth::user()->getIdRoles()}}
+
+    @if($idrole == 7)
+        @foreach(\App\Models\User::whereRaw("lat is not null and lng is not null")->whereRaw(" role_user.role_id BETWEEN $idrole and $idrole+1 ")
+        ->join('role_user','role_user.user_id','=','users.id')
+        ->get() as $user)
+
+            @if($user->id === Auth::user()->id)
+                // console.log("{{$user}}")
+                L.marker(["{{$user->lat}}",  "{{$user->lng}}"]).addTo(map)
+                        .bindPopup("{{ $user->first_name }} {{ $user->last_name }} <br/> ชื่อร้าน:  {{$user->shop_name}} ")
+                        .openPopup();
+            
+            @else
+                L.marker(["{{$user->lat}}",  "{{$user->lng}}"],{icon: greenIcon}).addTo(map)
+                        .bindPopup("{{ $user->first_name }} {{ $user->last_name }} <br/> ชื่อร้าน:  {{$user->shop_name}} ")
+                        .openPopup();
+            @endif
+                    // L.marker([13.736735, 101.523186],{icon: greenIcon}).addTo(map)
+                    //     .bindPopup('Bangkok.<br> Easily customizable.')
+                    //     .openPopup();
+                //    dd("$user->first_name")
+                
+        @endforeach
+    @elseif($idrole == 8)
+        @foreach(\App\Models\User::whereRaw("lat is not null and lng is not null")->whereRaw(" role_user.role_id BETWEEN $idrole and $idrole+1 ")
+            ->join('role_user','role_user.user_id','=','users.id')
+            ->get() as $user)
+
+                @if($user->id === Auth::user()->id)
+                    // console.log("{{$user}}")
+                    L.marker(["{{$user->lat}}",  "{{$user->lng}}"]).addTo(map)
+                            .bindPopup("{{ $user->first_name }} {{ $user->last_name }} <br/> ชื่อร้าน:  {{$user->shop_name}} ")
+                            .openPopup();
+                
+                @else
+                    L.marker(["{{$user->lat}}",  "{{$user->lng}}"],{icon: greenIcon}).addTo(map)
+                            .bindPopup("{{ $user->first_name }} {{ $user->last_name }} <br/> ชื่อร้าน:  {{$user->shop_name}} ")
+                            .openPopup();
+                @endif
+                        // L.marker([13.736735, 101.523186],{icon: greenIcon}).addTo(map)
+                        //     .bindPopup('Bangkok.<br> Easily customizable.')
+                        //     .openPopup();
+                    //    dd("$user->first_name")
+        @endforeach
+    @elseif($idrole == 7)
+        @foreach(\App\Models\User::whereRaw("lat is not null and lng is not null")->whereRaw(" role_user.role_id BETWEEN $idrole and $idrole+1 ")
+            ->join('role_user','role_user.user_id','=','users.id')
+            ->get() as $user)
+
+                @if($user->id === Auth::user()->id)
+                    // console.log("{{$user}}")
+                    L.marker(["{{$user->lat}}",  "{{$user->lng}}"]).addTo(map)
+                            .bindPopup("{{ $user->first_name }} {{ $user->last_name }} <br/> ชื่อร้าน:  {{$user->shop_name}} ")
+                            .openPopup();
+                
+                @else
+                    L.marker(["{{$user->lat}}",  "{{$user->lng}}"],{icon: greenIcon}).addTo(map)
+                            .bindPopup("{{ $user->first_name }} {{ $user->last_name }} <br/> ชื่อร้าน:  {{$user->shop_name}} ")
+                            .openPopup();
+                @endif
+                        // L.marker([13.736735, 101.523186],{icon: greenIcon}).addTo(map)
+                        //     .bindPopup('Bangkok.<br> Easily customizable.')
+                        //     .openPopup();
+                    //    dd("$user->first_name")
+        @endforeach
+    @elseif($idrole == 6)
+        @foreach(\App\Models\User::whereRaw("lat is not null and lng is not null")->whereRaw(" role_user.role_id BETWEEN $idrole and $idrole+1 ")
+            ->join('role_user','role_user.user_id','=','users.id')
+            ->get() as $user)
+
+                @if($user->id === Auth::user()->id)
+                    // console.log("{{$user}}")
+                    L.marker(["{{$user->lat}}",  "{{$user->lng}}"]).addTo(map)
+                            .bindPopup("{{ $user->first_name }} {{ $user->last_name }} <br/> ชื่อร้าน:  {{$user->shop_name}} ")
+                            .openPopup();
+                
+                @else
+                    L.marker(["{{$user->lat}}",  "{{$user->lng}}"],{icon: greenIcon}).addTo(map)
+                            .bindPopup("{{ $user->first_name }} {{ $user->last_name }} <br/> ชื่อร้าน:  {{$user->shop_name}} ")
+                            .openPopup();
+                @endif
+                        // L.marker([13.736735, 101.523186],{icon: greenIcon}).addTo(map)
+                        //     .bindPopup('Bangkok.<br> Easily customizable.')
+                        //     .openPopup();
+                    //    dd("$user->first_name")
+        @endforeach    
+    @elseif($idrole == 5)
+        @foreach(\App\Models\User::whereRaw("lat is not null and lng is not null")->whereRaw(" role_user.role_id BETWEEN $idrole and 7 ")
+            ->join('role_user','role_user.user_id','=','users.id')
+            ->get() as $user)
+
+                @if($user->id === Auth::user()->id)
+                    // console.log("{{$user}}")
+                    L.marker(["{{$user->lat}}",  "{{$user->lng}}"]).addTo(map)
+                            .bindPopup("{{ $user->first_name }} {{ $user->last_name }} <br/> ชื่อร้าน:  {{$user->shop_name}} ")
+                            .openPopup();
+                
+                @else
+                    L.marker(["{{$user->lat}}",  "{{$user->lng}}"],{icon: greenIcon}).addTo(map)
+                            .bindPopup("{{ $user->first_name }} {{ $user->last_name }} <br/> ชื่อร้าน:  {{$user->shop_name}} ")
+                            .openPopup();
+                @endif
+                        // L.marker([13.736735, 101.523186],{icon: greenIcon}).addTo(map)
+                        //     .bindPopup('Bangkok.<br> Easily customizable.')
+                        //     .openPopup();
+                    //    dd("$user->first_name")
+        @endforeach
+    @elseif($idrole == 4)
+        @foreach(\App\Models\User::whereRaw("lat is not null and lng is not null")->whereRaw(" role_user.role_id BETWEEN $idrole and 7 ")
+            ->join('role_user','role_user.user_id','=','users.id')
+            ->get() as $user)
+
+                @if($user->id === Auth::user()->id)
+                    // console.log("{{$user}}")
+                    L.marker(["{{$user->lat}}",  "{{$user->lng}}"]).addTo(map)
+                            .bindPopup("{{ $user->first_name }} {{ $user->last_name }} <br/> ชื่อร้าน:  {{$user->shop_name}} ")
+                            .openPopup();
+                
+                @else
+                    L.marker(["{{$user->lat}}",  "{{$user->lng}}"],{icon: greenIcon}).addTo(map)
+                            .bindPopup("{{ $user->first_name }} {{ $user->last_name }} <br/> ชื่อร้าน:  {{$user->shop_name}} ")
+                            .openPopup();
+                @endif
+                        // L.marker([13.736735, 101.523186],{icon: greenIcon}).addTo(map)
+                        //     .bindPopup('Bangkok.<br> Easily customizable.')
+                        //     .openPopup();
+                    //    dd("$user->first_name")
+        @endforeach
+    @elseif($idrole == 3)
+        @foreach(\App\Models\User::whereRaw("lat is not null and lng is not null")->whereRaw(" role_user.role_id BETWEEN $idrole and 7 ")
+            ->join('role_user','role_user.user_id','=','users.id')
+            ->get() as $user)
+
+                @if($user->id === Auth::user()->id)
+                    // console.log("{{$user}}")
+                    L.marker(["{{$user->lat}}",  "{{$user->lng}}"]).addTo(map)
+                            .bindPopup("{{ $user->first_name }} {{ $user->last_name }} <br/> ชื่อร้าน:  {{$user->shop_name}} ")
+                            .openPopup();
+                
+                @else
+                    L.marker(["{{$user->lat}}",  "{{$user->lng}}"],{icon: greenIcon}).addTo(map)
+                            .bindPopup("{{ $user->first_name }} {{ $user->last_name }} <br/> ชื่อร้าน:  {{$user->shop_name}} ")
+                            .openPopup();
+                @endif
+                        // L.marker([13.736735, 101.523186],{icon: greenIcon}).addTo(map)
+                        //     .bindPopup('Bangkok.<br> Easily customizable.')
+                        //     .openPopup();
+                    //    dd("$user->first_name")
+        @endforeach
+    @else
+    @endif
+    
+</script>
+{{-- <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+  integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+  crossorigin="">
+</script>
+<script>
+    var map = L.map('map').setView([{{ config('leaflet.map_center_latitude')}}, {{config('leaflet.map_center_longtitude')}}], {{config('leaflet.zoom_level')}});
+    var baseUrl = "{{ url('/')}}";
+
+    L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=vmYqfNTInUoYqS7UVNFa', {
+        attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+    }).addTo(map);
+    axios.get('{{ route('api.outlets.index') }}')
+    .then(function (response) {
+        console.log(response.data);
+        L.geoJSON(response.data, {
+            pointToLayer: function(geoJsonPoint, latlng) {
+                return L.marker(latlng);
+            }
+        })
+        .bindPopup(function (layer) {
+            return layer.feature.properties.map_popup_content;
+        }).addTo(map);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+    @can('create', new App\Outlet)
+    var theMarker;
+    map.on('click', function(e) {
+        let latitude = e.latlng.lat.toString().substring(0, 15);
+        let longitude = e.latlng.lng.toString().substring(0, 15);
+        if (theMarker != undefined) {
+            map.removeLayer(theMarker);
+        };
+        var popupContent = "Your location : " + latitude + ", " + longitude + ".";
+        popupContent += '<br><a href="{{ route('outlets.create') }}?latitude=' + latitude + '&longitude=' + longitude + '">Add new outlet here</a>';
+        theMarker = L.marker([latitude, longitude]).addTo(map);
+        theMarker.bindPopup(popupContent)
+        .openPopup();
+    });
+    @endcan
+</script> --}}
+
+  
 @endsection

@@ -16,7 +16,7 @@ class SiteInfo
         ],
         [
             "name" => "จัดการ",
-            "icon" => "fas fa-tachometer-alt",
+            "icon" => "fas fa-edit",
             "url" => "/admin",
             "sublist" => [
                 ["name" => "สินค้า/ผลิตภัณฑ์", "icon" => "fas fa-shopping-bag", "url" => "/products"],
@@ -43,11 +43,20 @@ class SiteInfo
         ],
         [
             "name" => "จัดการ",
-            "icon" => "fas fa-tachometer-alt",
+            "icon" => "fas fa-edit",
             "url" => "/admin",
             "sublist" => [
                 ["name" => "สินค้า/ผลิตภัณฑ์", "icon" => "fas fa-shopping-bag", "url" => "/products"],
                 ["name" => "เพิ่มโพสต์กิจกรรม", "icon" => "far fa-newspaper", "url" => "/activity"],
+            ]
+        ],
+        [
+            "name" => "ตั้งค่าโปรไฟล์",
+            "icon" => "fas fa-cog",
+            "url" => "/admin",
+            "sublist" => [
+                ["name" => "ตั้งค่าโปรไฟล์ของฉัน", "icon" => "fas fa-user", "url" => "/setting-profile"],
+                ["name" => "ตั้งค่าโปรไฟล์ของร้าน", "icon" => "fas fa-shopping-cart", "url" => "/setting-shop"],
             ]
         ],
         [   "name" => "ร้านค้า", "icon" => "fas fa-shopping-cart" , "url" => "/shop"]

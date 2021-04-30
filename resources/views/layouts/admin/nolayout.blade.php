@@ -53,7 +53,7 @@
 
 <body class="animsition" style="animation-duration: 300ms; opacity: 1;)">
     <div id="app">
-        <div class="page" style="background-image: url('{{ asset('public/images/bg.png') }}'; background-repeat: no-repeat;
+        <div class="page" style="background-image: url('{{ asset('public/images/bg.png') }}'; background-repeat: no-repeat;min-height:100vh;
             background-size: 100% 100%;">
             @if ($errors->any())
             <div class="alert alert-danger">

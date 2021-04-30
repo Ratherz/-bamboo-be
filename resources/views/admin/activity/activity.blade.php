@@ -1,125 +1,152 @@
 @extends('layouts.admin.main')
 
 @section('content')
-    <div class="card">
-        <div class="card-header">
-            รายการกิจกรรม
-        </div>
-        <div class="card-body">
-            @if (session('publish'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('publish') }}
-                </div>
-            @endif
-            @if (session('edit'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('edit') }}
-                </div>
-            @endif
-            @if (session('error_publish'))
-                <div class="alert alert-danger" role="alert">
-                    {{ session('error_publish') }}
-                </div>
-            @endif
-            <table class="table table-bordered">
-                <tbody>
-                    <tr>
-                        <td>ชื่อเรื่อง</td>
-                        <td style="width: 100px">
-                            <center>เผยแพร่</center>
-                        </td>
-                        <td style="width: 300px">
-                            <center>จัดการ</center>
-                        </td>
-                    </tr>
-                    @foreach (App\Models\Activity::join('user_post', 'user_post.post_id', '=', 'wp_posts.id')
-            ->where('user_post.user_id', Auth::user()->id)
-            ->get()
-        as $item)
-                        <tr>
-                            <td>{{ $item['post_title'] }}</td>
-                            <td>
-                                <form action="{{ route('activity.update', $item['post_id']) }}" method="post"
-                                    name="publish">
-                                    @csrf
-                                    @method('put')
-                                    <center><input type="checkbox" name="post_status"
-                                            id="post_status_{{ $item['post_id'] }}"
-                                            {{ $item['post_status'] == 'publish' ? 'checked' : '' }}>
-                                    </center>
-                                </form>
-                            </td>
-                            <td>
-                                <center>
-                                    <button class="btn btn-danger px-4"
-                                        onclick="deleteActivity({{ $item->post_id }})">ลบ</button>
-
-                                    <a class="btn btn-warning px-4"
-                                        href="{{ route('activity.edit', $item['post_id']) }}">แก้ไข</a>
-
-
-                                </center>
-                            </td>
-                        </tr>
-
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+<div class="card">
+    <div class="card-header">
+        รายการกิจกรรม
     </div>
-    <div class="card">
-        <div class="card-header">
-            โพสต์กิจกรรม
+    <div class="card-body">
+        @if (session('publish'))
+        <div class="alert alert-success" role="alert">
+            {{ session('publish') }}
         </div>
-        <div class="card-body">
-            <div class="col-12">
-                @if (session('result'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('result') }}
-                    </div>
-                @endif
-                <h5>เพิ่มข้อมูลกิจกรรม <i class="far fa-newspaper"></i></h5>
-                <hr>
-            </div>
-            <form action="{{ route('activity.store') }}" method="post">
-                @csrf
-                <div class="row">
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label for="post_title">หัวเรื่อง</label>
-                            <input id="post_title" class="form-control" type="text" name="post_title" required>
-                        </div>
-                    </div>
-                    <div class="col-12 mb-3">
-                        <h5>ตั้งค่าเพิ่มเติม</h5>
-                        <div class="form-check" required>
-                            <input class="form-check-input" name="comment_status" type="checkbox" id="comment_status"
-                                value="open">
-                            <label class="form-check-label" for="comment_status">
-                                สามารถ Comment ได้
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-12 mb-3">
-                        <h5>เนื้อหา</h5>
-                        <div class="form-group">
-                            <textarea name="post_content" class="form-control" rows="10" required cols="80"> </textarea>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label for="t1">ลิงก์เพิ่มเติม</label>
-                            <textarea name="link" id="t1" class="form-control" rows="10" required
-                                cols="80" placeholder="ได้มากกว่า 1 รายการ เช่น
-https://www.facebook.com/activity
-https://www.youtube.com/activity
-https://www.instagram.com/activity"></textarea>
-                        </div>
-                    </div>
+        @endif
+        @if (session('edit'))
+        <div class="alert alert-success" role="alert">
+            {{ session('edit') }}
+        </div>
+        @endif
+        @if (session('error_publish'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('error_publish') }}
+        </div>
+        @endif
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td>ชื่อเรื่อง</td>
+                    <td style="width: 100px">
+                        <center>เผยแพร่</center>
+                    </td>
+                    <td style="width: 300px">
+                        <center>จัดการ</center>
+                    </td>
+                </tr>
+                @foreach (App\Models\Activity::join('user_post', 'user_post.post_id', '=', 'wp_posts.id')
+                ->where('user_post.user_id', Auth::user()->id)
+                ->get()
+                as $item)
+                <tr>
+                    <td>{{ $item['post_title'] }}</td>
+                    <td>
+                        <form action="{{ route('activity.update', $item['post_id']) }}" method="post" name="publish">
+                            @csrf
+                            @method('put')
+                            <center><input type="checkbox" name="post_status" id="post_status_{{ $item['post_id'] }}" {{ $item['post_status'] == 'publish' ? 'checked' : '' }}>
+                            </center>
+                        </form>
+                    </td>
+                    <td>
+                        <center>
+                            <button class="btn btn-danger px-4" onclick="deleteActivity({{ $item->post_id }})">ลบ</button>
 
-                </div>
-                <button type="submit" class="btn btn-success">เพิ่มกิจกรรม</button>
+                            <a class="btn btn-warning px-4" href="{{ route('activity.edit', $item['post_id']) }}">แก้ไข</a>
+
+
+                        </center>
+                    </td>
+                </tr>
+
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        โพสต์กิจกรรม
+    </div>
+    <div class="card-body">
+        <div class="col-12">
+            @if (session('result'))
+            <div class="alert alert-success" role="alert">
+                {{ session('result') }}
+            </div>
+            @endif
+            <h5>เพิ่มข้อมูลกิจกรรม <i class="far fa-newspaper"></i></h5>
+            <hr>
         </div>
+        <form action="{{ route('activity.store') }}" method="post">
+            @csrf
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="post_title">หัวเรื่อง</label>
+                        <input id="post_title" class="form-control" type="text" name="post_title" required>
+                    </div>
+                </div>
+                <div class="col-12 mb-3">
+                    <h5>ตั้งค่าเพิ่มเติม</h5>
+                    <div class="form-check" required>
+                        <input class="form-check-input" name="comment_status" type="checkbox" id="comment_status" value="open">
+                        <label class="form-check-label" for="comment_status">
+                            สามารถ Comment ได้
+                        </label>
+                    </div>
+                </div>
+                <div class="col-12 mb-3">
+                    <h5>เนื้อหา</h5>
+                    <div class="form-group">
+                        <textarea name="post_content" class="form-control" rows="10" required cols="80"> </textarea>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="t1">ลิงก์เพิ่มเติม</label>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend" >
+                                        <span class="input-group-text" id="basic-addon1" style="width:2.5rem"><i class="fab fa-facebook-f"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Facebook" aria-label="Facebook" name="facebook" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" style="width:2.5rem"><i class="fab fa-youtube"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Youtube" aria-label="Youtube" name="youtube" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" style="width:2.5rem"><i class="fab fa-instagram"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Instagram" aria-label="Instagram" name="instagram" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" style="width:2.5rem"><i class="fas fa-plus"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Other" aria-label="Other" name="other" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                    <button type="submit" class="btn btn-success">เพิ่มกิจกรรม</button>
+                </div>
+               
+            </div>
         </form>
         <form action="{{ route('activity.destroy', 0) }}" method="post" name="delete" id="delete">
             @csrf
@@ -127,36 +154,37 @@ https://www.instagram.com/activity"></textarea>
             <input type="text" id="to_delete" name="to_delete">
         </form>
     </div>
-    </div>
+</div>
 @endsection
 @section('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#t1').summernote('destroy');
-            $('#t1').val('')
-        });
+
+<script>
+    $(document).ready(function() {
+        $('textarea').summernote({
+            height: '30vh'
+        })
+    });
 
 
-        let form = Array.from(document.getElementsByName('publish'));
+    let form = Array.from(document.getElementsByName('publish'));
 
-        for (let i = 0; i < form.length; i++) {
-            document.getElementsByName('post_status')[i].addEventListener('click', function() {
+    for (let i = 0; i < form.length; i++) {
+        document.getElementsByName('post_status')[i].addEventListener('click', function() {
 
-                if (form[i][2].checked) {
-                    form[i][2].value = 'publish';
-                } else {
-                    form[i][2].value = 'draft';
-                }
-                form[i].submit();
-            })
-        }
-
-        function deleteActivity(id) {
-            if (confirm('คุณต้องการที่จะลบกิจกรรมนี้')) {
-                document.getElementById('to_delete').value = id;
-                $('#delete').submit();
+            if (form[i][2].checked) {
+                form[i][2].value = 'publish';
+            } else {
+                form[i][2].value = 'draft';
             }
-        }
+            form[i].submit();
+        })
+    }
 
-    </script>
+    function deleteActivity(id) {
+        if (confirm('คุณต้องการที่จะลบกิจกรรมนี้')) {
+            document.getElementById('to_delete').value = id;
+            $('#delete').submit();
+        }
+    }
+</script>
 @endsection

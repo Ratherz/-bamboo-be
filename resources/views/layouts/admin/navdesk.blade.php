@@ -135,7 +135,7 @@ background-size: 100% ;">
                 <div class="account-wrap">
                     <div class="account-item clearfix js-item-menu">
                         <div class="image">
-                            <img src="{{asset('public/theme/images/icon/avatar-01.jpg')}}"
+                            <img src="{{ asset('public/storage/' . Auth::user()->file_image) }}"
                                 alt="{{ Auth::user()->first_name.' '.Auth::user()->last_name ?? 'ยังไม่ได้เข้าสู่ระบบ'}}">
                         </div>
                         <div class="content">
@@ -146,7 +146,7 @@ background-size: 100% ;">
                             <div class="info clearfix">
                                 <div class="image">
                                     <a href="#">
-                                        <img src="{{asset('public/theme/images/icon/avatar-01.jpg')}}"
+                                        <img src="{{ asset('public/storage/' . Auth::user()->file_image) }} "
                                             alt="{{ Auth::user()->first_name.' '.Auth::user()->last_name ?? 'ยังไม่ได้เข้าสู่ระบบ'}}">
                                     </a>
                                 </div>

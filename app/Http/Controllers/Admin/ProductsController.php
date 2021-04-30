@@ -34,9 +34,9 @@ class ProductsController extends Controller
         } else {
             $products = Product::latest()->paginate($perPage);
         }
-        $productImg = Product::join('product_img','product_img.product','=','products.id')->get()->toArray();
+        $productImg = Product::join('product_img', 'product_img.product', '=', 'products.id')->get()->toArray();
         // dd($productImg);
-        return view('admin.products.index', ['products'=>$products,'productImg'=>$productImg]);
+        return view('admin.products.index', ['products' => $products, 'productImg' => $productImg]);
     }
 
     /**
@@ -65,45 +65,84 @@ class ProductsController extends Controller
         ]);
         $requestData = $request->all();
         $requestData['user_id'] = Auth::user()->id;
-           
+        $j = 0;
+        Product::create($requestData);
         if ($request->hasFile('file_image')) {
             $destinationPath = public_path("/storage" . '/' . Auth::user()->id);
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 0777, true);
             }
             $files = $request->file('file_image');
-            $j =0;
-            
+
+
             foreach ($files as $file) {
                 $input['imagename'][$j] = Auth::user()->id . '/' . time()  . '.' . $file->extension();
                 ($file->move($destinationPath, time() . '.' . $file->extension()));
-               
+                $name =  Product::select('id')
+                    ->orderBy('id', 'desc')
+                    ->limit(1)
+                    ->get();
+                $path = $input['imagename'][$j];
+                $ProductImg = new ProductImg;
+                $ProductImg->path = $path;
+                $str = $name[0]->getOriginal();
+                $s = intval(strval(implode($str)));
+                $ProductImg->product = $s;
+                $ProductImg->save();
                 sleep(1);
-                
                 $j++;
             }
-               
         }
+        if ($request->hasFile('file_image2')) {
+            $destinationPath = public_path("/storage" . '/' . Auth::user()->id);
+           
+            $files2 = $request->file('file_image2');
+            foreach ($files2 as $file2) {
+                $input['imagename'][$j] = Auth::user()->id . '/' . time()  . '.' . $file2->extension();
+                ($file2->move($destinationPath, time() . '.' . $file2->extension()));
+                $name =  Product::select('id')
+                    ->orderBy('id', 'desc')
+                    ->limit(1)
+                    ->get();
+                $path = $input['imagename'][$j];
+                $ProductImg = new ProductImg;
+                $ProductImg->path = $path;
+                $str = $name[0]->getOriginal();
+                $s = intval(strval(implode($str)));
+                $ProductImg->product = $s;
+                $ProductImg->save();
+                sleep(1);
+                $j++;
+            }
+        }
+
+        if ($request->hasFile('file_image3')) {
+            $destinationPath = public_path("/storage" . '/' . Auth::user()->id);
+           
+            $files3 = $request->file('file_image3');
+            foreach ($files3 as $file3) {
+                $input['imagename'][$j] = Auth::user()->id . '/' . time()  . '.' . $file3->extension();
+                ($file3->move($destinationPath, time() . '.' . $file3->extension()));
+                $name =  Product::select('id')
+                    ->orderBy('id', 'desc')
+                    ->limit(1)
+                    ->get();
+                $path = $input['imagename'][$j];
+                $ProductImg = new ProductImg;
+                $ProductImg->path = $path;
+                $str = $name[0]->getOriginal();
+                $s = intval(strval(implode($str)));
+                $ProductImg->product = $s;
+                $ProductImg->save();
+                sleep(1);
+                $j++;
+            }
+        }
+
+        
        
-        Product::create($requestData);
-        
-    $i = 0;
-    while($i!=count($files)){
-        $name =  Product::select('id')
-        ->orderBy('id', 'desc')
-        ->limit(1)
-        ->get();
-        $path = $input['imagename'][$i];
-        $ProductImg = new ProductImg;
-        $ProductImg->path = $path;
-        $str = $name[0]->getOriginal();
-        $s =intval(strval(implode($str)));
-        $ProductImg->product =$s ;
-        $ProductImg->save();
-        sleep(1);
-        $i++;
-    }
-        
+
+
         return redirect('products')->with('flash_message', 'Product added!');
     }
 
@@ -117,10 +156,10 @@ class ProductsController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        $productImg = Product::join('product_img','product_img.product','=','products.id')->where('products.id',$id)->get()->toArray();
+        $productImg = Product::join('product_img', 'product_img.product', '=', 'products.id')->where('products.id', $id)->get()->toArray();
         // dd($product);
 
-        return view('admin.products.show', ['product'=>$product,'productImg'=>$productImg]);
+        return view('admin.products.show', ['product' => $product, 'productImg' => $productImg]);
     }
 
     /**

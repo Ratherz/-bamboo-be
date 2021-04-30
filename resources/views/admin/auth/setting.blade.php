@@ -55,9 +55,7 @@
                     <div class="col-md-6"></div>
                     <div class="col-md-12">
                         {!! Form::label('', 'สถานะของคุณ', []) !!}
-                        {!! Form::select('Roles[]', App\Models\Role::where('name', '!=', 'admin')->pluck('label', 'id'),
-                        App\Models\RoleUser::where('user_id', Auth::user()->id)->pluck('role_id'), ['class' =>
-                        'form-control']) !!}
+                        {!! Form::select('Roles[]', App\Models\Role::where('name', '!=', 'admin')->pluck('label', 'id'), App\Models\RoleUser::where('user_id', Auth::user()->id)->pluck('role_id'), ['class' => 'form-control']) !!}
                     </div>
 
                     <div class="col-12">
@@ -96,28 +94,28 @@
                     <div class="col-md-3 col-6">
                         <div class="form-group">
                             <label for="">ตำบล</label>
-                            <input required value="{{ Auth::user()->district }}" type="text" name="district" id=""
-                                class="form-control" placeholder="">
+                            <input required value="{{ Auth::user()->district }}" type="text" name="district"
+                                id="district" class="form-control" placeholder="">
                         </div>
                     </div>
                     <div class="col-md-3 col-6">
                         <div class="form-group">
                             <label for="">อำเภอ</label>
-                            <input required value="{{ Auth::user()->amphure }}" type="text" name="amphure" id=""
+                            <input required value="{{ Auth::user()->amphure }}" type="text" name="amphure" id="amphoe"
                                 class="form-control" placeholder="">
                         </div>
                     </div>
                     <div class="col-md-3 col-6">
                         <div class="form-group">
                             <label for="">จังหวัด</label>
-                            <input required value="{{ Auth::user()->province }}" type="text" name="province" id=""
-                                class="form-control" placeholder="">
+                            <input required value="{{ Auth::user()->province }}" type="text" name="province"
+                                id="province" class="form-control" placeholder="">
                         </div>
                     </div>
                     <div class="col-md-3 col-6">
                         <div class="form-group">
                             <label for="">รหัสไปรษณีย์</label>
-                            <input required value="{{ Auth::user()->zip }}" type="text" name="zip" id=""
+                            <input required value="{{ Auth::user()->zip }}" type="text" name="zip" id="zipcode"
                                 class="form-control" placeholder="">
                         </div>
                     </div>
@@ -160,7 +158,6 @@
         </div>
     </div>
 
-
     <div class="row">
         <div class="col-md-8">
             <div class="card text-center">
@@ -200,7 +197,7 @@
                             <input required value="{{ Auth::user()->lng }}" type="text" name="lng" id="lng"
                                 class="form-control" placeholder="">
                         </div>
-                        <a onclick=" getLocation()" class="btn btn-danger text-white mb-1 w-100"><i
+                        <a onclick=" getLocation1()" class="btn btn-danger text-white mb-1 w-100"><i
                                 class="fa fa-location-arrow" aria-hidden="true"></i> ใช้ตำแหน่งจาก GPS</a>
                         {!! Form::submit('บันทึกข้อมูล', ['class' => 'btn btn-info text-white btn-lg w-100']) !!}
                     </form>
@@ -211,11 +208,12 @@
 
 @endsection
 @section('scripts')
+
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtPKAiQFAwF6J7FAimVOGkJwJmUb2o1Tg&callback=initMap&libraries=places"
-        {{-- src="https://maps.googleapis.com/maps/api/js?key=[            API KEY              ]&callback=initMap&libraries=places" --}}
-        defer></script>
+    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCd9d0Ws4huhVYI0X8F9gPmP6UWK-stJf0&callback=initMap&libraries=places" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCd9d0Ws4huhVYI0X8F9gPmP6UWK-stJf0&callback=initMap&libraries=places" defer></script> --}}
+    {{-- <script type="text/javascript" href="https://maps.googleapis.com/maps/api/js?key=AIzaSyCd9d0Ws4huhVYI0X8F9gPmP6UWK-stJf0&callback=initMap&libraries=places"></script> --}}
+
+
     <script>
         $('#file_image').on('change', function(e) {
             filePreview(this);
@@ -236,5 +234,123 @@
         }
 
     </script>
+
+    {{-- New Map --}}
+    {{-- <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script> --}}
+
+    <link rel="stylesheet" href="{{ asset('/public/leaflet/leaflet-gps.css') }}"/>
+
+    {{-- <link rel="stylesheet" href="{{ asset('/public/leaflet/style.css') }}"/> --}}
+    {{-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" /> --}}
+    {{-- @push('scripts') --}}
+    {{-- <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin="">
+    </script> --}}
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
+    <script
+      src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
+    <link rel="stylesheet" type="text/css"
+      href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
+    <script src="{{ asset('/public/leaflet/leaflet-gps.js') }}"></script>
+
+    {{-- <script>
+        var map = new L.Map('map', {
+            zoom: 7.5,
+            center: new L.latLng([13.736717, 100.523186])
+        });
+
+        map.addLayer(new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));	//base layer
+
+        var gps = new L.Control.Gps({
+            //autoActive:true,
+            autoCenter: true
+        });//inizialize control
+
+        gps
+            .on('gps:located', function (e) {
+                //	e.marker.bindPopup(e.latlng.toString()).openPopup()
+                console.log("test")
+                console.log(e.latlng, map.getCenter())
+            })
+            .on('gps:disabled', function (e) {
+                e.marker.closePopup()
+            });
+
+        gps.addTo(map);
+
+        var searchControl = new L.esri.Controls.Geosearch().addTo(map);
+
+        var results = new L.LayerGroup().addTo(map);
+
+        searchControl.on('results', function(data){
+        results.clearLayers();
+        for (var i = data.results.length - 1; i >= 0; i--) {
+            results.addLayer(L.marker(data.results[i].latlng));
+            console.log(data.results[i].latlng.lat)
+            $("#lat").val(data.results[i].latlng.lat);
+            $("#lng").val(data.results[i].latlng.lng);
+        }
+        });
+
+   
+        function getLocation1(){
+            navigator.geolocation.getCurrentPosition(function (location) {
+                var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
+                var marker = L.marker(latlng).addTo(map);
+                map.setView(latlng,15.5);
+                console.log("latlng")
+            });
+        }
+    </script> --}}
+
+
+    {{-- <script src="{{ asset('Leaflet.AccuratePosition.js') }}"></script>
+    <script>
+		var map = L.map('map').setView([40.44695, -345.23437], 1);
+
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
+
+		function onAccuratePositionError (e) {
+			addStatus(e.message, 'error');
+		}
+
+		function onAccuratePositionProgress (e) {
+			var message = 'Progressing … (Accuracy: ' + e.accuracy + ')';
+			addStatus(message, 'progressing');
+		}
+
+		function onAccuratePositionFound (e) {
+			var message = 'Most accurate position found (Accuracy: ' + e.accuracy + ')';
+			addStatus(message, 'done');
+			map.setView(e.latlng, 12);
+			L.marker(e.latlng).addTo(map);
+		}
+
+		function addStatus (message, className) {
+			var ul = document.getElementById('status'),
+				li = document.createElement('li');
+			li.appendChild(document.createTextNode(message));
+			ul.className = className;
+			ul.appendChild(li);
+		}
+
+		map.on('accuratepositionprogress', onAccuratePositionProgress);
+		map.on('accuratepositionfound', onAccuratePositionFound);
+		map.on('accuratepositionerror', onAccuratePositionError);
+
+		map.findAccuratePosition({
+			maxWait: 10000,
+			desiredAccuracy: 20
+		});
+	</script> --}}
+
     @include('admin.auth.edit-form-script')
 @endsection

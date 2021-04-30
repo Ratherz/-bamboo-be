@@ -1,4 +1,4 @@
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     const originLat = {{ Auth::user()->lat ?? 13.736717}};
     const originLng = {{ Auth::user()->lng ?? 100.523186}};
 
@@ -99,6 +99,15 @@
       }
     }
 
+    function getLocation1(){
+        navigator.geolocation.getCurrentPosition(function (location) {
+            var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
+            var marker = L.marker(latlng).addTo(map);
+            map.setView(latlng,15.5);
+        });
+        // console.log("latlng")
+    }
+
     function showPosition(position) {
         $("#lat").val(position.coords.latitude);
         $("#lng").val(position.coords.longitude);
@@ -113,4 +122,66 @@
         infoWindow.close();
     }
 
+</script> --}}
+
+
+<script type="text/javascript">
+    var map = new L.Map('map', {
+        zoom: 7.5,
+        center: new L.latLng([13.736717, 100.523186])
+    });
+
+    map.addLayer(new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));	//base layer
+
+    var gps = new L.Control.Gps({
+        //autoActive:true,
+        autoCenter: true
+    });//inizialize control
+
+    gps
+        .on('gps:located', function (e) {
+            //	e.marker.bindPopup(e.latlng.toString()).openPopup()
+            console.log("test")
+            console.log(e.latlng, map.getCenter())
+        })
+        .on('gps:disabled', function (e) {
+            e.marker.closePopup()
+        });
+
+    gps.addTo(map);
+
+    var searchControl = new L.esri.Controls.Geosearch().addTo(map);
+    const inputSe = document.getElementById("pac-input");
+    var results = new L.LayerGroup().addTo(map);
+    console.log(inputSe)
+
+    searchControl.on('results', function(data){
+    results.clearLayers();
+    for (var i = data.results.length - 1; i >= 0; i--) {
+        results.addLayer(L.marker(data.results[i].latlng));
+        console.log(data)
+        $("#lat").val(data.results[i].latlng.lat);
+        $("#lng").val(data.results[i].latlng.lng);
+    }
+    });
+
+    searchControl.on('pac-input', function(data){
+    results.clearLayers();
+    for (var i = data.results.length - 1; i >= 0; i--) {
+        results.addLayer(L.marker(data.results[i].latlng));
+        console.log(data)
+        $("#lat").val(data.results[i].latlng.lat);
+        $("#lng").val(data.results[i].latlng.lng);
+    }
+    });
+
+
+    function getLocation1(){
+        navigator.geolocation.getCurrentPosition(function (location) {
+            var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
+            var marker = L.marker(latlng).addTo(map);
+            map.setView(latlng,15.5);
+            console.log("latlng")
+        });
+    }
 </script>

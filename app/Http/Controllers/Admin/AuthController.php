@@ -12,6 +12,17 @@ class AuthController extends Controller
     public function setting()
     {
         return view('admin.auth.setting');
+        // return view('admin.setting.settingProfile');
+    }
+    public function settingProfile()
+    {
+        // return view('admin.auth.setting');
+        return view('admin.setting.settingProfile');
+    }
+    public function settingShop()
+    {
+        // return view('admin.auth.setting');
+        return view('admin.setting.settingShop');
     }
 
     public function profileUpdate(Request $request)
